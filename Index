@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative AI for Final Assignment</title>
+    <style>
+        /* CSS Variables for consistent theming and accessibility */
+        :root {
+            --primary-bg: #f4f7f6;
+            --surface-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #4a4a4a;
+            --accent-blue: #025091;
+            --accent-hover: #013a6b;
+            
+            /* Problem List Colors (Optimized for WCAG contrast with white text) */
+            --color-drift: #882b79;
+            --color-resistance: #3b2582;
+            --color-trends: #27598c;
+            --color-data: #22754c;
+            --color-lag: #3b7d1e;
+            
+            --border-radius-lg: 16px;
+            --border-radius-md: 8px;
+            --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            --focus-ring: 3px solid #005fcc;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 1rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Accessibility: Focus Styles */
+        *:focus-visible {
+            outline: var(--focus-ring);
+            outline-offset: 3px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            line-height: 1.2;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.25rem;
+            color: var(--text-main);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        /* Layout & Containers */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header / Hero Section */
+        header.hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #ffffff;
+            padding: 6rem 0;
+            text-align: center;
+            border-bottom: 5px solid var(--accent-blue);
+            animation: fadeInDown 0.8s ease-out forwards;
+        }
+
+        header.hero h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        header.hero p {
+            color: #cbd5e1;
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section 1: Introduction */
+        .intro-section {
+            padding: 5rem 0;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 900px) {
+            .intro-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background: var(--surface-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Context Specific Styling */
+        .context-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .context-list li {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .context-list li::before {
+            content: "•";
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        .context-list strong {
+            color: var(--accent-blue);
+        }
+
+        .sub-list {
+            list-style: none;
+            margin-top: 1rem;
+            padding-left: 1rem;
+            border-left: 3px solid #e2e8f0;
+        }
+
+        .sub-list li {
+            padding-left: 1rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        /* Problem Specific Styling */
+        .problem-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .problem-list li {
+            padding: 1.25rem;
+            border-radius: var(--border-radius-md);
+            color: #ffffff;
+            font-weight: 500;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Gradients mapping to the image */
+        .problem-list li:nth-child(1) { background: linear-gradient(135deg, #a6348d, #882b79); }
+        .problem-list li:nth-child(2) { background: linear-gradient(135deg, #4f32a6, #3b2582); }
+        .problem-list li:nth-child(3) { background: linear-gradient(135deg, #3776b8, #27598c); }
+        .problem-list li:nth-child(4) { background: linear-gradient(135deg, #31a16b, #22754c); }
+        .problem-list li:nth-child(5) { background: linear-gradient(135deg, #4a9e27, #3b7d1e); }
+
+        /* Section 2: Interactive Split Section */
+        .interactive-section {
+            padding: 0 0 6rem 0;
+        }
+
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        @media (min-width: 768px) {
+            .split-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Left Side: References iframe */
+        .references-container {
+            background: var(--surface-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+            height: 100%;
+            min-height: 650px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .references-container h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        iframe {
+            width: 100%;
+            flex-grow: 1;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--border-radius-md);
+            background: #ffffff;
+        }
+
+        /* Right Side: Chatbot placeholder */
+        .chatbot-container {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .chatbot-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+        }
+
+        .chatbot-icon {
+            width: 80px;
+            height: 80px;
+            background: #eff6ff;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: #3b82f6;
+        }
+
+        .chatbot-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .botpress-notice {
+            background: #fffbeb;
+            color: #92400e;
+            padding: 1rem;
+            border-radius: var(--border-radius-md);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            text-align: left;
+            border-left: 4px solid #f59e0b;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="hero" role="banner">
+        <div class="container">
+            <h1>Generative AI for Final Assignment</h1>
+            <p>Exploring the complexities of Clinical Breakpoints and Antimicrobial Resistance Surveillance</p>
+        </div>
+    </header>
+
+    <main role="main">
+        <!-- Section 1: Introduction (Based on Images) -->
+        <section class="intro-section" aria-labelledby="intro-heading">
+            <div class="container intro-grid">
+                
+                <!-- Context Card -->
+                <div class="card animate-up delay-1">
+                    <h2 id="intro-heading">Context</h2>
+                    <h3>What are Clinical Breakpoints?</h3>
+                    <ul class="context-list">
+                        <li>
+                            <strong>The Cutoff Line:</strong> A number that determines exactly how much of an antibiotic is needed to successfully stop a bacterial infection.
+                        </li>
+                        <li>
+                            <strong>The Susceptible vs. Resistant Label:</strong> It categorizes bacteria based on drug safety limits.
+                            <ul class="sub-list">
+                                <li>If a safe, normal dose stops the bacteria, it is labelled <em>"Susceptible"</em> (the drug works).</li>
+                                <li>If it requires a dose higher than a human can safely handle, it is labelled <em>"Resistant"</em> (the drug fails).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- The Problem Card -->
+                <div class="card animate-up delay-2">
+                    <h2>THE PROBLEM</h2>
+                    <h3>Breakpoint Changes & AMR Surveillance</h3>
+                    <ul class="problem-list">
+                        <li><strong>Breakpoint Drift</strong> - Artificial shifts in interpretive data that confound long-term trend tracking.</li>
+                        <li><strong>Perceived vs. Real Resistance</strong> - Stricter definitions can trigger a false appearance of microbial evolution.</li>
+                        <li><strong>Skewed Global Trends</strong> - Failure to retroactively adjust historical data severely distorts burden estimates.</li>
+                        <li><strong>Incompatible Data</strong> - Divergent standards between regional bodies ([CLSI] vs [EUCAST]) prevent international comparison.</li>
+                        <li><strong>Software Update Lag</strong> - Regulatory delays in commercial testing systems leave labs using obsolete criteria.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 2: Interactive Tools (References & Chatbot) -->
+        <section class="interactive-section" aria-labelledby="interactive-heading">
+            <div class="container split-grid">
+                
+                <!-- Left Side: Document Embedding -->
+                <article class="references-container animate-up delay-1">
+                    <h2 id="interactive-heading">Latest Knowledge & References</h2>
+                    <p>Review the embedded clinical breakpoints documentation below.</p>
+                    <!-- Using htmlpreview.github.io to render the raw HTML correctly within the iframe -->
+                    <iframe 
+                        src="https://htmlpreview.github.io/?https://github.com/milo976-coder/GenAI-Final-Assignment/blob/main/Latest%20Knowledge%20for%20Clinical%20Breakpoints.html" 
+                        title="Embedded Document: Latest Knowledge for Clinical Breakpoints"
+                        allowfullscreen>
+                    </iframe>
+                </article>
+
+                <!-- Right Side: Chatbot Integration -->
+                <article class="chatbot-container animate-up delay-2">
+                    <div class="chatbot-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                        </svg>
+                    </div>
+                    <h2>AI Assistant</h2>
+                    <p>Engage with our Generative AI trained on the final assignment material.</p>
+                    
+                    <div class="botpress-notice">
+                        <strong>Interactive Session Ready</strong><br>
+                        The AI chatbot is embedded on this page. If the chat window hasn't automatically appeared here, please click the floating chat icon in the bottom right corner of your screen to begin interacting.
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Botpress Chatbot Scripts -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/06/28/05/20260628052035-5Y4ZKORV.js" defer></script>
+
+</body>
+</html>
