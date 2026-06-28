@@ -240,11 +240,11 @@
             background: #ffffff;
         }
 
-        /* Right Side: Chatbot placeholder */
+        /* Right Side: Chatbot container (Updated for embedding) */
         .chatbot-container {
             background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
             border-radius: var(--border-radius-lg);
-            padding: 2.5rem;
+            padding: 2rem; /* Matched to left side */
             box-shadow: var(--shadow-soft);
             text-align: center;
             border: 1px solid #e2e8f0;
@@ -252,9 +252,8 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
             height: 100%;
+            min-height: 650px; /* Matched to left side */
         }
 
         .chatbot-container::before {
@@ -265,32 +264,12 @@
             background: linear-gradient(to right, #3b82f6, #8b5cf6);
         }
 
-        .chatbot-icon {
-            width: 80px;
-            height: 80px;
-            background: #eff6ff;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        .chatbot-header {
             margin-bottom: 1.5rem;
-            color: #3b82f6;
         }
 
-        .chatbot-icon svg {
-            width: 40px;
-            height: 40px;
-        }
-
-        .botpress-notice {
-            background: #fffbeb;
-            color: #92400e;
-            padding: 1rem;
-            border-radius: var(--border-radius-md);
-            font-size: 0.9rem;
-            margin-top: 2rem;
-            text-align: left;
-            border-left: 4px solid #f59e0b;
+        .chatbot-header h2 {
+            margin-bottom: 0.5rem;
         }
 
         /* Animations */
@@ -316,7 +295,6 @@
 </head>
 <body>
 
-    <!-- Header Section -->
     <header class="hero" role="banner">
         <div class="container">
             <h1>Generative AI Course Final Assignment</h1>
@@ -325,11 +303,9 @@
     </header>
 
     <main role="main">
-        <!-- Section 1: Introduction (Based on Images) -->
         <section class="intro-section" aria-labelledby="intro-heading">
             <div class="container intro-grid">
                 
-                <!-- Context Card -->
                 <div class="card animate-up delay-1">
                     <h2 id="intro-heading">Context</h2>
                     <h3>What are Clinical Breakpoints?</h3>
@@ -347,7 +323,6 @@
                     </ul>
                 </div>
 
-                <!-- The Problem Card -->
                 <div class="card animate-up delay-2">
                     <h2>THE PROBLEM</h2>
                     <h3>Breakpoint Changes & AMR Surveillance</h3>
@@ -363,15 +338,12 @@
             </div>
         </section>
 
-        <!-- Section 2: Interactive Tools (References & Chatbot) -->
         <section class="interactive-section" aria-labelledby="interactive-heading">
             <div class="container split-grid">
                 
-                <!-- Left Side: Document Embedding -->
                 <article class="references-container animate-up delay-1">
                     <h2 id="interactive-heading">Latest Knowledge & References</h2>
                     <p>Review the embedded clinical breakpoints documentation below.</p>
-                    <!-- Using htmlpreview.github.io to render the raw HTML correctly within the iframe -->
                     <iframe 
                         src="https://htmlpreview.github.io/?https://github.com/milo976-coder/GenAI-Final-Assignment/blob/main/Latest%20Knowledge%20for%20Clinical%20Breakpoints.html" 
                         title="Embedded Document: Latest Knowledge for Clinical Breakpoints"
@@ -379,31 +351,24 @@
                     </iframe>
                 </article>
 
-                <!-- Right Side: Chatbot Integration -->
                 <article class="chatbot-container animate-up delay-2">
-                    <div class="chatbot-icon" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                        </svg>
+                    <div class="chatbot-header">
+                        <h2>AI Assistant</h2>
+                        <p>Engage with our Generative AI trained on Clinical Breakpoint information from EUCAST Guidelines.</p>
                     </div>
-                    <h2>AI Assistant</h2>
-                    <p>Engage with our Generative AI trained on Clinical Breakpoint information from EUCAST Guidelines.</p>
                     
-                    <div class="botpress-notice">
-                        
-                        <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
-                        <script src="https://files.bpcontent.cloud/2026/06/28/05/20260628052035-5Y4ZKORV.js" defer></script>
-    
-                    </div>
+                    <iframe 
+                        src="https://mediafiles.botpress.cloud/YOUR_CLIENT_ID/webchat/bot.html" 
+                        title="Botpress AI Assistant"
+                        allow="microphone; camera"
+                        style="width: 100%; flex-grow: 1; border: 2px solid #e2e8f0; border-radius: 8px; background: #ffffff;">
+                    </iframe>
+                    
                 </article>
 
             </div>
         </section>
     </main>
-
-    <!-- Botpress Chatbot Scripts -->
-    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
-    <script src="https://files.bpcontent.cloud/2026/06/28/05/20260628052035-5Y4ZKORV.js" defer></script>
 
 </body>
 </html>
